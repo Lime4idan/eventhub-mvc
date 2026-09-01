@@ -73,4 +73,6 @@ O Bootstrap é carregado pelo CDN oficial, e o CSS da pasta `public` adiciona a 
 
 O backend está pronto para o Render e usa `process.env.PORT`. No Render, configure as variáveis do `.env.example`. Para Aiven MySQL, configure host, porta, usuário, senha e banco. Se a conexão exigir SSL, use `DB_SSL=true`; a verificação do servidor fica ativa por padrão e nenhum certificado é inventado ou incluído no projeto.
 
+O arquivo `render.yaml` permite criar o serviço pelo recurso Blueprint do Render. Durante a criação, o painel solicita os dados privados do banco; eles não ficam gravados no repositório.
+
 Em produção, use uma `SESSION_SECRET` segura e HTTPS. O armazenamento padrão de sessões é suficiente para a atividade escolar e para uma única instância; um sistema de grande porte deve usar um armazenamento persistente de sessões.
