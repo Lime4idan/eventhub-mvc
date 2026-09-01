@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= titulo %> | EventHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-roxa">
+    <div class="container d-flex flex-wrap gap-3">
+      <a class="navbar-brand fw-bold" href="/">EventHub</a>
+      <div class="d-flex align-items-center flex-wrap gap-3 ms-auto">
+      <% if (usuario) { %>
+        <a class="nav-link" href="/eventos">Eventos</a>
+        <% if (usuario.tipo === 'participante') { %><a class="nav-link" href="/inscricoes/minhas">Minhas inscrições</a><% } %>
+        <span class="small text-secondary">Olá, <%= usuario.nome %></span>
+        <form action="/logout" method="post"><button class="btn btn-sm btn-outline-primary">Sair</button></form>
+      <% } else { %>
+        <a class="btn btn-sm btn-outline-primary" href="/login">Entrar</a><a class="btn btn-sm btn-primary" href="/cadastro">Cadastrar</a>
+      <% } %>
+      </div>
+    </div>
+  </nav>
+  <main class="container py-5 pagina">
+    <% if (mensagemSucesso) { %><div class="alert alert-success"><%= mensagemSucesso %></div><% } %>
+    <% if (mensagemErro) { %><div class="alert alert-danger"><%= mensagemErro %></div><% } %>

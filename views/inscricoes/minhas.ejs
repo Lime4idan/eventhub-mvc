@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+<div class="mb-4"><h1 class="h2">Minhas inscrições</h1></div>
+<section class="grade">
+  <% if (!inscricoes.length) { %><div class="card border-0 shadow-sm p-4"><p class="text-secondary mb-0">Você ainda não se inscreveu em eventos.</p></div><% } %>
+  <% inscricoes.forEach(inscricao => { %>
+    <article class="card shadow-sm cartao">
+      <span class="badge data-evento"><%= new Date(inscricao.data_evento).toLocaleDateString('pt-BR') %></span>
+      <h2 class="h5"><%= inscricao.titulo %></h2>
+      <p><strong>Data:</strong> <%= new Date(inscricao.data_evento).toLocaleString('pt-BR') %></p>
+      <p><strong>Local:</strong> <%= inscricao.local %></p>
+      <div class="acoes"><a class="btn btn-sm btn-outline-primary" href="/eventos/<%= inscricao.evento_id %>">Detalhes</a><form action="/eventos/<%= inscricao.evento_id %>/cancelar" method="post"><button class="btn btn-sm btn-outline-danger">Cancelar</button></form></div>
+    </article>
+  <% }) %>
+</section>
+<%- include('../partials/footer') %>

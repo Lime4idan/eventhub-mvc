@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+<section class="card card-form border-0 shadow-sm mx-auto"><div class="card-body p-4 p-md-5">
+  <h1 class="h2 mb-4">Criar conta</h1>
+  <%- include('../partials/erros', { erros }) %>
+  <form action="/cadastro" method="post">
+    <div class="mb-3"><label class="form-label" for="nome">Nome</label><input class="form-control" id="nome" name="nome" value="<%= dados.nome || '' %>" required></div>
+    <div class="mb-3"><label class="form-label" for="email">E-mail</label><input class="form-control" id="email" name="email" type="email" value="<%= dados.email || '' %>" required></div>
+    <div class="mb-3"><label class="form-label" for="senha">Senha</label><input class="form-control" id="senha" name="senha" type="password" minlength="6" required><div class="form-text">Use pelo menos 6 caracteres.</div></div>
+    <div class="mb-4"><label class="form-label" for="tipo">Tipo de conta</label><select class="form-select" id="tipo" name="tipo" required>
+      <option value="participante" <%= dados.tipo === 'participante' ? 'selected' : '' %>>Participante</option>
+      <option value="organizador" <%= dados.tipo === 'organizador' ? 'selected' : '' %>>Organizador</option>
+    </select></div>
+    <button class="btn btn-primary w-100" type="submit">Cadastrar</button>
+  </form>
+</div></section>
+<%- include('../partials/footer') %>

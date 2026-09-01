@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+<section class="card border-0 shadow-sm formulario-evento mx-auto"><div class="card-body p-4 p-md-5">
+  <h1 class="h2 mb-4"><%= titulo %></h1>
+  <%- include('../partials/erros', { erros }) %>
+  <form action="<%= acao %>" method="post">
+    <div class="mb-3"><label class="form-label" for="titulo">Título</label><input class="form-control" id="titulo" name="titulo" value="<%= evento.titulo || '' %>" maxlength="150" required></div>
+    <div class="mb-3"><label class="form-label" for="descricao">Descrição</label><textarea class="form-control" id="descricao" name="descricao" rows="5" required><%= evento.descricao || '' %></textarea></div>
+    <div class="row g-3 mb-3">
+      <div class="col-md-8"><label class="form-label" for="data_evento">Data e hora</label><input class="form-control" id="data_evento" name="data_evento" type="datetime-local" value="<%= evento.data_evento && !Number.isNaN(new Date(evento.data_evento).getTime()) ? new Date(evento.data_evento).toISOString().slice(0,16) : '' %>" required></div>
+      <div class="col-md-4"><label class="form-label" for="vagas">Número de vagas</label><input class="form-control" id="vagas" name="vagas" type="number" min="1" value="<%= evento.vagas || 1 %>" required></div>
+    </div>
+    <div class="mb-4"><label class="form-label" for="local">Local</label><input class="form-control" id="local" name="local" value="<%= evento.local || '' %>" required></div>
+    <div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Salvar</button><a class="btn btn-light border" href="/eventos">Cancelar</a></div>
+  </form>
+</div></section>
+<%- include('../partials/footer') %>
