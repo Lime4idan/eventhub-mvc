@@ -2,6 +2,8 @@
 
 Sistema de gestão de eventos desenvolvido com uma arquitetura MVC simples. Organizadores cadastram e administram eventos; participantes consultam os eventos e controlam suas inscrições.
 
+Aplicação publicada: https://eventhub-mvc-q11u.onrender.com
+
 ## Tecnologias
 
 - Node.js, Express, EJS e Bootstrap 5.3.8
