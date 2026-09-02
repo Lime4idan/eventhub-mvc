@@ -42,6 +42,7 @@ A aplicação estará em `http://localhost:3000`. Para execução normal, use `n
 | `DB_NAME` | Nome do banco, normalmente `eventhub`. |
 | `DB_SSL` | Use `true` quando o provedor exigir SSL. |
 | `DB_SSL_REJECT_UNAUTHORIZED` | Controla a validação do servidor SSL. |
+| `DB_SSL_CA_BASE64` | Certificado CA do banco convertido para Base64. |
 | `SESSION_SECRET` | Segredo longo usado para proteger a sessão. |
 | `NODE_ENV` | Use `development` localmente e `production` no deploy. |
 
@@ -71,7 +72,7 @@ O Bootstrap é carregado pelo CDN oficial, e o CSS da pasta `public` adiciona a 
 
 ## Deploy
 
-O backend está pronto para o Render e usa `process.env.PORT`. No Render, configure as variáveis do `.env.example`. Para Aiven MySQL, configure host, porta, usuário, senha e banco. Se a conexão exigir SSL, use `DB_SSL=true`; a verificação do servidor fica ativa por padrão e nenhum certificado é inventado ou incluído no projeto.
+O backend está pronto para o Render e usa `process.env.PORT`. No Render, configure as variáveis do `.env.example`. Para Aiven MySQL, configure host, porta, usuário, senha e banco. Use `DB_SSL=true` e coloque o certificado fornecido pelo Aiven em `DB_SSL_CA_BASE64`. A verificação do servidor fica ativa e nenhum certificado real é incluído no projeto.
 
 O arquivo `render.yaml` permite criar o serviço pelo recurso Blueprint do Render. Durante a criação, o painel solicita os dados privados do banco; eles não ficam gravados no repositório.
 
