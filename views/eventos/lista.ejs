@@ -1,22 +1,22 @@
 <%- include('../partials/header') %>
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-  <div><h1 class="h2 mb-1"><%= usuario.tipo === 'organizador' ? 'Meus eventos' : 'Próximos eventos' %></h1><p class="text-secondary mb-0">Consulte os eventos cadastrados.</p></div>
-  <% if (usuario.tipo === 'organizador') { %><a class="btn btn-primary" href="/eventos/novo">+ Criar evento</a><% } %>
+  <div><h1 class="h2 mb-1"><%= usuario.tipo === 'organizador' ? 'My events' : 'Upcoming events' %></h1><p class="text-secondary mb-0">Browse the available events.</p></div>
+  <% if (usuario.tipo === 'organizador') { %><a class="btn btn-primary" href="/eventos/novo">+ Create event</a><% } %>
 </div>
 <section class="grade">
-  <% if (!eventos.length) { %><div class="card border-0 shadow-sm p-4"><p class="text-secondary mb-0">Nenhum evento encontrado.</p></div><% } %>
+  <% if (!eventos.length) { %><div class="card border-0 shadow-sm p-4"><p class="text-secondary mb-0">No events found.</p></div><% } %>
   <% eventos.forEach(evento => { %>
     <article class="card shadow-sm cartao">
-      <span class="badge data-evento"><%= new Date(evento.data_evento).toLocaleDateString('pt-BR') %></span>
+      <span class="badge data-evento"><%= new Date(evento.data_evento).toLocaleDateString('en-US') %></span>
       <h2 class="h5"><%= evento.titulo %></h2>
-      <p><strong>Local:</strong> <%= evento.local %></p>
-      <p><strong>Inscritos:</strong> <%= evento.total_inscritos %> / <%= evento.vagas %></p>
+      <p><strong>Location:</strong> <%= evento.local %></p>
+      <p><strong>Registered:</strong> <%= evento.total_inscritos %> / <%= evento.vagas %></p>
       <div class="acoes">
-        <a class="btn btn-sm btn-outline-primary" href="/eventos/<%= evento.id %>">Detalhes</a>
+        <a class="btn btn-sm btn-outline-primary" href="/eventos/<%= evento.id %>">Details</a>
         <% if (usuario.tipo === 'organizador') { %>
-          <a class="btn btn-sm btn-outline-primary" href="/eventos/<%= evento.id %>/editar">Editar</a>
-          <a class="btn btn-sm btn-outline-primary" href="/eventos/<%= evento.id %>/inscritos">Inscritos</a>
-          <form action="/eventos/<%= evento.id %>/excluir" method="post" onsubmit="return confirm('Excluir este evento?')"><button class="btn btn-sm btn-outline-danger">Excluir</button></form>
+          <a class="btn btn-sm btn-outline-primary" href="/eventos/<%= evento.id %>/editar">Edit</a>
+          <a class="btn btn-sm btn-outline-primary" href="/eventos/<%= evento.id %>/inscritos">Attendees</a>
+          <form action="/eventos/<%= evento.id %>/excluir" method="post" onsubmit="return confirm('Delete this event?')"><button class="btn btn-sm btn-outline-danger">Delete</button></form>
         <% } %>
       </div>
     </article>

@@ -1,11 +1,11 @@
 <%- include('../partials/header') %>
 <section class="card border-0 shadow-sm"><div class="card-body p-4">
-  <h1 class="h3 mb-4">Inscritos em <%= evento.titulo %></h1>
-  <% if (!inscritos.length) { %><div class="alert alert-light border">Ainda não há participantes inscritos.</div><% } else { %>
-    <div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>Nome</th><th>E-mail</th><th>Inscrição</th></tr></thead><tbody>
-      <% inscritos.forEach(pessoa => { %><tr><td><%= pessoa.nome %></td><td><%= pessoa.email %></td><td><%= new Date(pessoa.data_inscricao).toLocaleString('pt-BR') %></td></tr><% }) %>
+  <h1 class="h3 mb-4">Attendees registered for <%= evento.titulo %></h1>
+  <% if (!inscritos.length) { %><div class="alert alert-light border">No attendees have registered yet.</div><% } else { %>
+    <div class="table-responsive"><table class="table table-hover align-middle"><thead><tr><th>Name</th><th>Email</th><th>Registered</th></tr></thead><tbody>
+      <% inscritos.forEach(pessoa => { %><tr><td><%= pessoa.nome %></td><td><%= pessoa.email %></td><td><%= new Date(pessoa.data_inscricao).toLocaleString('en-US') %></td></tr><% }) %>
     </tbody></table></div>
   <% } %>
-  <a class="btn btn-light border mt-3" href="/eventos">Voltar</a>
+  <a class="btn btn-light border mt-3" href="/eventos">Back</a>
 </div></section>
 <%- include('../partials/footer') %>

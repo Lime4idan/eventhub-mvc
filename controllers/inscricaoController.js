@@ -11,20 +11,20 @@ const Inscricao = require('../models/Inscricao');
 async function inscrever(req, res) {
   try {
     await Inscricao.criar(req.session.usuario.id, req.params.id);
-    req.session.mensagemSucesso = 'Inscrição realizada com sucesso.';
+    req.session.mensagemSucesso = 'Registration completed successfully.';
   } catch (erro) {
     const mensagensEsperadas = [
-      'Evento não encontrado.',
-      'Você já está inscrito neste evento.',
-      'Não há vagas disponíveis.'
+      'Event not found.',
+      'You are already registered for this event.',
+      'No spots are available.'
     ];
     if (erro.code === 'ER_DUP_ENTRY') {
-      req.session.mensagemErro = 'Você já está inscrito neste evento.';
+      req.session.mensagemErro = 'You are already registered for this event.';
     } else if (mensagensEsperadas.includes(erro.message)) {
       req.session.mensagemErro = erro.message;
     } else {
       console.error(erro);
-      req.session.mensagemErro = 'Não foi possível realizar a inscrição.';
+      req.session.mensagemErro = 'Could not complete the registration.';
     }
   }
   res.redirect(`/eventos/${req.params.id}`);
@@ -42,7 +42,7 @@ async function inscrever(req, res) {
 async function cancelar(req, res, next) {
   try {
     await Inscricao.cancelar(req.session.usuario.id, req.params.id);
-    req.session.mensagemSucesso = 'Inscrição cancelada.';
+    req.session.mensagemSucesso = 'Registration canceled.';
     res.redirect('/inscricoes/minhas');
   } catch (erro) {
     next(erro);
@@ -61,7 +61,7 @@ async function cancelar(req, res, next) {
 async function minhas(req, res, next) {
   try {
     const inscricoes = await Inscricao.listarDoParticipante(req.session.usuario.id);
-    res.render('inscricoes/minhas', { titulo: 'Minhas inscrições', inscricoes });
+    res.render('inscricoes/minhas', { titulo: 'My registrations', inscricoes });
   } catch (erro) {
     next(erro);
   }

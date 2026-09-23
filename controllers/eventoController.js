@@ -23,7 +23,7 @@ async function listar(req, res, next) {
 }
 
 function mostrarNovo(req, res) {
-  res.render('eventos/formulario', { titulo: 'Novo evento', evento: {}, erros: [], acao: '/eventos' });
+  res.render('eventos/formulario', { titulo: 'New event', evento: {}, erros: [], acao: '/eventos' });
 }
 
 /**
@@ -40,11 +40,11 @@ async function criar(req, res, next) {
     const erros = obterErros(req);
     if (erros.length > 0) {
       return res.status(422).render('eventos/formulario', {
-        titulo: 'Novo evento', evento: req.body, erros, acao: '/eventos'
+        titulo: 'New event', evento: req.body, erros, acao: '/eventos'
       });
     }
     await Evento.criar(req.body, req.session.usuario.id);
-    req.session.mensagemSucesso = 'Evento criado com sucesso.';
+    req.session.mensagemSucesso = 'Event created successfully.';
     res.redirect('/eventos');
   } catch (erro) {
     next(erro);
@@ -63,7 +63,7 @@ async function criar(req, res, next) {
 async function detalhar(req, res, next) {
   try {
     const evento = await Evento.buscarPorId(req.params.id);
-    if (!evento) return res.status(404).render('erro', { titulo: 'Não encontrado', mensagem: 'Evento não encontrado.' });
+    if (!evento) return res.status(404).render('erro', { titulo: 'Not found', mensagem: 'Event not found.' });
 
     let inscrito = false;
     if (req.session.usuario.tipo === 'participante') {
@@ -79,10 +79,10 @@ async function mostrarEdicao(req, res, next) {
   try {
     const evento = await Evento.buscarPorId(req.params.id);
     if (!evento || evento.organizador_id !== req.session.usuario.id) {
-      return res.status(404).render('erro', { titulo: 'Não encontrado', mensagem: 'Evento não encontrado ou não pertence a você.' });
+      return res.status(404).render('erro', { titulo: 'Not found', mensagem: 'Event not found or not owned by you.' });
     }
     res.render('eventos/formulario', {
-      titulo: 'Editar evento', evento, erros: [], acao: `/eventos/${evento.id}/editar`
+      titulo: 'Edit event', evento, erros: [], acao: `/eventos/${evento.id}/editar`
     });
   } catch (erro) {
     next(erro);
@@ -103,13 +103,13 @@ async function atualizar(req, res, next) {
     const erros = obterErros(req);
     if (erros.length > 0) {
       return res.status(422).render('eventos/formulario', {
-        titulo: 'Editar evento', evento: { ...req.body, id: req.params.id }, erros,
+        titulo: 'Edit event', evento: { ...req.body, id: req.params.id }, erros,
         acao: `/eventos/${req.params.id}/editar`
       });
     }
     const alterados = await Evento.atualizar(req.params.id, req.body, req.session.usuario.id);
-    if (!alterados) return res.status(404).render('erro', { titulo: 'Não encontrado', mensagem: 'Evento não encontrado ou não pertence a você.' });
-    req.session.mensagemSucesso = 'Evento atualizado com sucesso.';
+    if (!alterados) return res.status(404).render('erro', { titulo: 'Not found', mensagem: 'Event not found or not owned by you.' });
+    req.session.mensagemSucesso = 'Event updated successfully.';
     res.redirect('/eventos');
   } catch (erro) {
     next(erro);
@@ -129,8 +129,8 @@ async function excluir(req, res, next) {
   try {
     const excluidos = await Evento.excluir(req.params.id, req.session.usuario.id);
     req.session[excluidos ? 'mensagemSucesso' : 'mensagemErro'] = excluidos
-      ? 'Evento excluído com sucesso.'
-      : 'Evento não encontrado ou não pertence a você.';
+      ? 'Event deleted successfully.'
+      : 'Event not found or not owned by you.';
     res.redirect('/eventos');
   } catch (erro) {
     next(erro);
@@ -150,10 +150,10 @@ async function verInscritos(req, res, next) {
   try {
     const evento = await Evento.buscarPorId(req.params.id);
     if (!evento || evento.organizador_id !== req.session.usuario.id) {
-      return res.status(404).render('erro', { titulo: 'Não encontrado', mensagem: 'Evento não encontrado ou não pertence a você.' });
+      return res.status(404).render('erro', { titulo: 'Not found', mensagem: 'Event not found or not owned by you.' });
     }
     const inscritos = await Inscricao.listarInscritos(req.params.id, req.session.usuario.id);
-    res.render('eventos/inscritos', { titulo: 'Pessoas inscritas', evento, inscritos });
+    res.render('eventos/inscritos', { titulo: 'Registered attendees', evento, inscritos });
   } catch (erro) {
     next(erro);
   }

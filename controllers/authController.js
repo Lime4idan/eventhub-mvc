@@ -3,7 +3,7 @@ const Usuario = require('../models/Usuario');
 const { obterErros } = require('../middlewares/validacoes');
 
 function mostrarCadastro(req, res) {
-  res.render('auth/cadastro', { titulo: 'Cadastro', erros: [], dados: {} });
+  res.render('auth/cadastro', { titulo: 'Register', erros: [], dados: {} });
 }
 
 /**
@@ -20,22 +20,22 @@ async function cadastrar(req, res, next) {
     const erros = obterErros(req);
     if (erros.length > 0) {
       return res.status(422).render('auth/cadastro', {
-        titulo: 'Cadastro', erros, dados: req.body
+        titulo: 'Register', erros, dados: req.body
       });
     }
 
     const usuarioExistente = await Usuario.buscarPorEmail(req.body.email);
     if (usuarioExistente) {
       return res.status(409).render('auth/cadastro', {
-        titulo: 'Cadastro',
-        erros: [{ msg: 'Este e-mail já está cadastrado.' }],
+        titulo: 'Register',
+        erros: [{ msg: 'This email address is already registered.' }],
         dados: req.body
       });
     }
 
     const senhaProtegida = await bcrypt.hash(req.body.senha, 10);
     await Usuario.criar(req.body.nome, req.body.email, senhaProtegida, req.body.tipo);
-    req.session.mensagemSucesso = 'Cadastro realizado. Agora faça login.';
+    req.session.mensagemSucesso = 'Account created. You can now sign in.';
     res.redirect('/login');
   } catch (erro) {
     next(erro);
@@ -66,7 +66,7 @@ async function entrar(req, res, next) {
     const senhaCorreta = usuario && await bcrypt.compare(req.body.senha, usuario.senha);
     if (!senhaCorreta) {
       return res.status(401).render('auth/login', {
-        titulo: 'Login', erros: [{ msg: 'E-mail ou senha incorretos.' }], dados: req.body
+        titulo: 'Login', erros: [{ msg: 'Incorrect email address or password.' }], dados: req.body
       });
     }
 

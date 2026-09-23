@@ -1,13 +1,13 @@
 <%- include('../partials/header') %>
 <section class="card card-form border-0 shadow-sm mx-auto"><div class="card-body p-4 p-md-5">
-  <h1 class="h2">Entrar no EventHub</h1>
-  <p class="text-secondary mb-4">Informe seu e-mail e sua senha.</p>
+  <h1 class="h2">Sign in to EventHub</h1>
+  <p class="text-secondary mb-4">Enter your email address and password.</p>
   <%- include('../partials/erros', { erros }) %>
   <form action="/login" method="post">
-    <div class="mb-3"><label class="form-label" for="email">E-mail</label><input class="form-control" id="email" name="email" type="email" value="<%= dados.email || '' %>" required></div>
-    <div class="mb-4"><label class="form-label" for="senha">Senha</label><input class="form-control" id="senha" name="senha" type="password" required></div>
-    <button class="btn btn-primary w-100" type="submit">Entrar</button>
+    <div class="mb-3"><label class="form-label" for="email">Email</label><input class="form-control" id="email" name="email" type="email" value="<%= dados.email || '' %>" required></div>
+    <div class="mb-4"><label class="form-label" for="senha">Password</label><input class="form-control" id="senha" name="senha" type="password" required></div>
+    <button class="btn btn-primary w-100" type="submit">Sign in</button>
   </form>
-  <p class="text-center mt-4 mb-0">Não possui conta? <a href="/cadastro">Cadastre-se</a>.</p>
+  <p class="text-center mt-4 mb-0">New to EventHub? <a href="/cadastro">Create an account</a>.</p>
 </div></section>
 <%- include('../partials/footer') %>

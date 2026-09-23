@@ -13,7 +13,7 @@ const porta = process.env.PORT || 3000;
 const segredoSessao = process.env.SESSION_SECRET;
 
 if (process.env.NODE_ENV === 'production' && !segredoSessao) {
-  throw new Error('SESSION_SECRET deve ser configurada em produção.');
+  throw new Error('SESSION_SECRET must be configured in production.');
 }
 
 if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
@@ -42,19 +42,19 @@ app.use('/eventos', eventoRoutes);
 app.use(inscricaoRoutes);
 
 app.use((req, res) => {
-  res.status(404).render('erro', { titulo: 'Página não encontrada', mensagem: 'A página solicitada não existe.' });
+  res.status(404).render('erro', { titulo: 'Page not found', mensagem: 'The requested page does not exist.' });
 });
 
 app.use((erro, req, res, next) => {
   console.error(erro);
   const mensagem = process.env.NODE_ENV === 'production'
-    ? 'Ocorreu um erro interno. Tente novamente.'
+    ? 'An internal error occurred. Please try again.'
     : erro.message;
-  res.status(500).render('erro', { titulo: 'Erro', mensagem });
+  res.status(500).render('erro', { titulo: 'Error', mensagem });
 });
 
 if (require.main === module) {
-  app.listen(porta, () => console.log(`EventHub disponível em http://localhost:${porta}`));
+  app.listen(porta, () => console.log(`EventHub available at http://localhost:${porta}`));
 }
 
 module.exports = app;

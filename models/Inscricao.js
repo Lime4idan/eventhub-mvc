@@ -10,19 +10,19 @@ async function criar(usuarioId, eventoId) {
       'SELECT id, vagas FROM eventos WHERE id = ? FOR UPDATE',
       [eventoId]
     );
-    if (!eventos[0]) throw new Error('Evento não encontrado.');
+    if (!eventos[0]) throw new Error('Event not found.');
 
     const [existentes] = await banco.execute(
       'SELECT id FROM inscricoes WHERE usuario_id = ? AND evento_id = ?',
       [usuarioId, eventoId]
     );
-    if (existentes.length > 0) throw new Error('Você já está inscrito neste evento.');
+    if (existentes.length > 0) throw new Error('You are already registered for this event.');
 
     const [quantidade] = await banco.execute(
       'SELECT COUNT(*) AS total FROM inscricoes WHERE evento_id = ?',
       [eventoId]
     );
-    if (quantidade[0].total >= eventos[0].vagas) throw new Error('Não há vagas disponíveis.');
+    if (quantidade[0].total >= eventos[0].vagas) throw new Error('No spots are available.');
 
     await banco.execute(
       'INSERT INTO inscricoes (usuario_id, evento_id) VALUES (?, ?)',

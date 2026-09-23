@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +13,12 @@
       <a class="navbar-brand fw-bold" href="/">EventHub</a>
       <div class="d-flex align-items-center flex-wrap gap-3 ms-auto">
       <% if (usuario) { %>
-        <a class="nav-link" href="/eventos">Eventos</a>
-        <% if (usuario.tipo === 'participante') { %><a class="nav-link" href="/inscricoes/minhas">Minhas inscrições</a><% } %>
-        <span class="small text-secondary">Olá, <%= usuario.nome %></span>
-        <form action="/logout" method="post"><button class="btn btn-sm btn-outline-primary">Sair</button></form>
+        <a class="nav-link" href="/eventos">Events</a>
+        <% if (usuario.tipo === 'participante') { %><a class="nav-link" href="/inscricoes/minhas">My registrations</a><% } %>
+        <span class="small text-secondary">Hello, <%= usuario.nome %></span>
+        <form action="/logout" method="post"><button class="btn btn-sm btn-outline-primary">Sign out</button></form>
       <% } else { %>
-        <a class="btn btn-sm btn-outline-primary" href="/login">Entrar</a><a class="btn btn-sm btn-primary" href="/cadastro">Cadastrar</a>
+        <a class="btn btn-sm btn-outline-primary" href="/login">Sign in</a><a class="btn btn-sm btn-primary" href="/cadastro">Register</a>
       <% } %>
       </div>
     </div>

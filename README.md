@@ -1,81 +1,64 @@
 # EventHub MVC
 
-Sistema de gestão de eventos desenvolvido com uma arquitetura MVC simples. Organizadores cadastram e administram eventos; participantes consultam os eventos e controlam suas inscrições.
+An event-management application built with a straightforward MVC architecture. Organizers create and manage events, while attendees browse upcoming events and manage their registrations.
 
-Aplicação publicada: https://eventhub-mvc-q11u.onrender.com
+**Live application:** https://eventhub-mvc-q11u.onrender.com
 
-## Tecnologias
+## Stack
 
-- Node.js, Express, EJS e Bootstrap 5.3.8
-- MySQL com `mysql2/promise`
-- Sessões com `express-session`
-- Senhas protegidas com `bcryptjs`
-- Validação com `express-validator`
-- Variáveis de ambiente com `dotenv`
+- Node.js, Express, EJS, and Bootstrap 5.3.8
+- MySQL with `mysql2/promise`
+- `express-session` sessions and `bcryptjs` password hashing
+- Validation with `express-validator`
+- Environment configuration with `dotenv`
 
-## Como instalar
+## Local setup
 
-1. Tenha o Node.js e o MySQL instalados.
-2. Entre na pasta do projeto e instale as dependências:
+1. Install Node.js and MySQL.
+2. Install the project dependencies with `npm install`.
+3. Run `database/schema.sql` in MySQL to create the `eventhub` database and tables.
+4. Copy `.env.example` to `.env`, configure the database, and add a long random `SESSION_SECRET`.
+5. Start the development server with `npm run dev`.
 
-```bash
-npm install
-```
+The application runs at `http://localhost:3000`. Use `npm start` for a regular production-style start.
 
-3. Execute o arquivo `database/schema.sql` no MySQL. Ele cria o banco `eventhub` e suas tabelas.
-4. Copie `.env.example` para `.env` e preencha a conexão com o banco e uma `SESSION_SECRET` longa e aleatória.
-5. Inicie o projeto:
+## Environment variables
 
-```bash
-npm run dev
-```
-
-A aplicação estará em `http://localhost:3000`. Para execução normal, use `npm start`.
-
-## Variáveis de ambiente
-
-| Variável | Finalidade |
+| Variable | Purpose |
 | --- | --- |
-| `PORT` | Porta usada pelo servidor. |
-| `DB_HOST` | Endereço do servidor MySQL. |
-| `DB_PORT` | Porta do MySQL, normalmente `3306`. |
-| `DB_USER` | Usuário do banco. |
-| `DB_PASSWORD` | Senha do banco. |
-| `DB_NAME` | Nome do banco, normalmente `eventhub`. |
-| `DB_SSL` | Use `true` quando o provedor exigir SSL. |
-| `DB_SSL_REJECT_UNAUTHORIZED` | Controla a validação do servidor SSL. |
-| `DB_SSL_CA_BASE64` | Certificado CA do banco convertido para Base64. |
-| `SESSION_SECRET` | Segredo longo usado para proteger a sessão. |
-| `NODE_ENV` | Use `development` localmente e `production` no deploy. |
+| `PORT` | HTTP server port |
+| `DB_HOST`, `DB_PORT` | MySQL host and port |
+| `DB_USER`, `DB_PASSWORD`, `DB_NAME` | Database credentials and name |
+| `DB_SSL` | Enable SSL when required by the provider |
+| `DB_SSL_REJECT_UNAUTHORIZED` | Control SSL server verification |
+| `DB_SSL_CA_BASE64` | Base64-encoded database CA certificate |
+| `SESSION_SECRET` | Long secret used to protect sessions |
+| `NODE_ENV` | Runtime environment |
 
-Os nomes também estão disponíveis no arquivo `.env.example`. Credenciais reais não devem ser enviadas ao GitHub.
+Never commit real credentials to GitHub.
 
-## Funcionalidades
+## Features
 
-- Cadastro, login, logout e sessão com cookie `httpOnly`.
-- Dois perfis: organizador e participante.
-- CRUD de eventos limitado ao organizador proprietário.
-- Lista de inscritos para o organizador.
-- Inscrição, cancelamento e lista de inscrições do participante.
-- Bloqueio de inscrição duplicada e de inscrição sem vagas.
+- Registration, login, logout, and `httpOnly` cookie sessions
+- Organizer and attendee roles
+- Event CRUD restricted to the owning organizer
+- Attendee list for organizers
+- Registration, cancellation, and personal registration history for attendees
+- Protection against duplicate registrations and registration when an event is full
 
-## Arquitetura
+## Architecture
 
-- `config`: conexão com o banco.
-- `models`: consultas SQL parametrizadas.
-- `controllers`: regras das telas e ações.
-- `middlewares`: autenticação, permissões e validação.
-- `routes`: endereços da aplicação.
-- `views`: páginas EJS.
-- `public`: CSS público.
-- `database`: script de criação do banco.
+- `config` — database connection
+- `models` — parameterized SQL queries
+- `controllers` — page and action rules
+- `middlewares` — authentication, permissions, and validation
+- `routes` — application endpoints
+- `views` — EJS pages
+- `public` — public styles
+- `database` — database creation script
 
-O Bootstrap é carregado pelo CDN oficial, e o CSS da pasta `public` adiciona a identidade visual roxo-claro do projeto.
+## Deployment
 
-## Deploy
+The project is configured for Render and uses `process.env.PORT`. Configure every variable from `.env.example`. For Aiven MySQL, enable `DB_SSL`, provide the CA certificate through `DB_SSL_CA_BASE64`, and keep server verification enabled.
 
-O backend está pronto para o Render e usa `process.env.PORT`. No Render, configure as variáveis do `.env.example`. Para Aiven MySQL, configure host, porta, usuário, senha e banco. Use `DB_SSL=true` e coloque o certificado fornecido pelo Aiven em `DB_SSL_CA_BASE64`. A verificação do servidor fica ativa e nenhum certificado real é incluído no projeto.
-
-O arquivo `render.yaml` permite criar o serviço pelo recurso Blueprint do Render. Durante a criação, o painel solicita os dados privados do banco; eles não ficam gravados no repositório.
-
-Em produção, use uma `SESSION_SECRET` segura e HTTPS. O armazenamento padrão de sessões é suficiente para a atividade escolar e para uma única instância; um sistema de grande porte deve usar um armazenamento persistente de sessões.
+`render.yaml` supports Render Blueprints without storing private database values in the repository. For a multi-instance production deployment, replace the default session store with a persistent session store.

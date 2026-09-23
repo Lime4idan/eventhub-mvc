@@ -1,13 +1,13 @@
 <%- include('../partials/header') %>
 <article class="card border-0 shadow-sm detalhes-evento mx-auto"><div class="card-body p-4 p-md-5">
-  <span class="badge data-evento mb-3"><%= new Date(evento.data_evento).toLocaleString('pt-BR') %></span>
+  <span class="badge data-evento mb-3"><%= new Date(evento.data_evento).toLocaleString('en-US') %></span>
   <h1 class="h2"><%= evento.titulo %></h1>
   <p class="descricao text-secondary"><%= evento.descricao %></p>
-  <dl class="informacoes-evento"><dt>Local</dt><dd><%= evento.local %></dd><dt>Organizador</dt><dd><%= evento.organizador_nome %></dd><dt>Vagas disponíveis</dt><dd><%= evento.vagas_disponiveis %> de <%= evento.vagas %></dd></dl>
+  <dl class="informacoes-evento"><dt>Location</dt><dd><%= evento.local %></dd><dt>Organizer</dt><dd><%= evento.organizador_nome %></dd><dt>Available spots</dt><dd><%= evento.vagas_disponiveis %> of <%= evento.vagas %></dd></dl>
   <div class="acoes">
-    <% if (usuario.tipo === 'participante' && !inscrito && evento.vagas_disponiveis > 0) { %><form action="/eventos/<%= evento.id %>/inscrever" method="post"><button class="btn btn-primary">Inscrever-se</button></form><% } %>
-    <% if (usuario.tipo === 'participante' && inscrito) { %><form action="/eventos/<%= evento.id %>/cancelar" method="post"><button class="btn btn-outline-danger">Cancelar inscrição</button></form><% } %>
-    <a class="btn btn-light border" href="/eventos">Voltar</a>
+    <% if (usuario.tipo === 'participante' && !inscrito && evento.vagas_disponiveis > 0) { %><form action="/eventos/<%= evento.id %>/inscrever" method="post"><button class="btn btn-primary">Register</button></form><% } %>
+    <% if (usuario.tipo === 'participante' && inscrito) { %><form action="/eventos/<%= evento.id %>/cancelar" method="post"><button class="btn btn-outline-danger">Cancel registration</button></form><% } %>
+    <a class="btn btn-light border" href="/eventos">Back</a>
   </div>
 </div></article>
 <%- include('../partials/footer') %>
