@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎟️ EventHub MVC
+# EventHub MVC
 
 Create events, welcome attendees, and keep every registration organized.
 
