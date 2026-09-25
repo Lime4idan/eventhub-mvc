@@ -1,13 +1,29 @@
 <%- include('../partials/header') %>
-<section class="card card-form border-0 shadow-sm mx-auto"><div class="card-body p-4 p-md-5">
-  <h1 class="h2">Sign in to EventHub</h1>
-  <p class="text-secondary mb-4">Enter your email address and password.</p>
-  <%- include('../partials/erros', { erros }) %>
-  <form action="/login" method="post">
-    <div class="mb-3"><label class="form-label" for="email">Email</label><input class="form-control" id="email" name="email" type="email" value="<%= dados.email || '' %>" required></div>
-    <div class="mb-4"><label class="form-label" for="senha">Password</label><input class="form-control" id="senha" name="senha" type="password" required></div>
-    <button class="btn btn-primary w-100" type="submit">Sign in</button>
-  </form>
-  <p class="text-center mt-4 mb-0">New to EventHub? <a href="/cadastro">Create an account</a>.</p>
-</div></section>
+<section class="auth-layout">
+  <aside class="auth-showcase">
+    <div>
+      <p class="eyebrow">One place for every gathering</p>
+      <h1>Make plans people can actually join.</h1>
+      <p>Create an event, share the details, and keep every registration organized without losing the human side of meeting up.</p>
+    </div>
+    <div class="event-stack" aria-label="Upcoming event examples">
+      <article class="mini-event"><span class="mini-date">18<br>OCT</span><span><strong>Creative Tech Meetup</strong><small>Community Hall · 18:30</small></span><span>24 spots</span></article>
+      <article class="mini-event"><span class="mini-date">02<br>NOV</span><span><strong>Design in Motion</strong><small>Studio 04 · 15:00</small></span><span>12 spots</span></article>
+    </div>
+  </aside>
+  <div class="auth-panel">
+    <section class="card card-form"><div class="card-body p-0">
+      <p class="eyebrow">Welcome back</p>
+      <h2>Sign in to EventHub</h2>
+      <p class="text-secondary mb-4">Continue planning, organizing, and joining the events that matter to you.</p>
+      <%- include('../partials/erros', { erros }) %>
+      <form action="/login" method="post">
+        <div class="mb-3"><label class="form-label" for="email">Email</label><input class="form-control" id="email" name="email" type="email" autocomplete="email" value="<%= dados.email || '' %>" required></div>
+        <div class="mb-4"><label class="form-label" for="senha">Password</label><input class="form-control" id="senha" name="senha" type="password" autocomplete="current-password" required></div>
+        <button class="btn btn-primary w-100" type="submit">Sign in</button>
+      </form>
+      <p class="text-center mt-4 mb-0">New to EventHub? <a href="/cadastro">Create an account</a>.</p>
+    </div></section>
+  </div>
+</section>
 <%- include('../partials/footer') %>

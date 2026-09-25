@@ -1,13 +1,13 @@
 <%- include('../partials/header') %>
-<div class="mb-4"><h1 class="h2">My registrations</h1></div>
+<header class="page-heading"><div><p class="eyebrow">Saved plans</p><h1>My registrations</h1><p>Your upcoming places, all in one view.</p></div><a class="btn btn-outline-primary" href="/eventos">Explore events</a></header>
 <section class="grade">
-  <% if (!inscricoes.length) { %><div class="card border-0 shadow-sm p-4"><p class="text-secondary mb-0">You have not registered for any events yet.</p></div><% } %>
+  <% if (!inscricoes.length) { %><div class="empty-state"><span aria-hidden="true">✦</span><h2>No plans yet</h2><p>Browse the next events and save a place when something catches your eye.</p></div><% } %>
   <% inscricoes.forEach(inscricao => { %>
     <article class="card shadow-sm cartao">
       <span class="badge data-evento"><%= new Date(inscricao.data_evento).toLocaleDateString('en-US') %></span>
       <h2 class="h5"><%= inscricao.titulo %></h2>
-      <p><strong>Date:</strong> <%= new Date(inscricao.data_evento).toLocaleString('en-US') %></p>
-      <p><strong>Location:</strong> <%= inscricao.local %></p>
+      <p class="event-meta"><span>Date</span><strong><%= new Date(inscricao.data_evento).toLocaleString('en-US') %></strong></p>
+      <p class="event-meta"><span>Location</span><strong><%= inscricao.local %></strong></p>
       <div class="acoes"><a class="btn btn-sm btn-outline-primary" href="/eventos/<%= inscricao.evento_id %>">Details</a><form action="/eventos/<%= inscricao.evento_id %>/cancelar" method="post"><button class="btn btn-sm btn-outline-danger">Cancel</button></form></div>
     </article>
   <% }) %>

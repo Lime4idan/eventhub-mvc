@@ -20,6 +20,12 @@ An event-management application built with a clear MVC architecture for organize
 
 ---
 
+## Preview
+
+![EventHub sign-in screen](./docs/eventhub-preview.png)
+
+The interface uses a responsive editorial system built around warm paper tones, deep green, coral accents, and clear event-focused hierarchy.
+
 ## About the project
 
 EventHub provides one shared space for planning and joining events. Organizers can create and manage their own events, while attendees can explore upcoming activities, register when seats are available, and review their registrations.

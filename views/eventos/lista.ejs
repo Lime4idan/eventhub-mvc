@@ -1,16 +1,16 @@
 <%- include('../partials/header') %>
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-  <div><h1 class="h2 mb-1"><%= usuario.tipo === 'organizador' ? 'My events' : 'Upcoming events' %></h1><p class="text-secondary mb-0">Browse the available events.</p></div>
+<header class="page-heading">
+  <div><p class="eyebrow"><%= usuario.tipo === 'organizador' ? 'Organizer workspace' : 'Your local agenda' %></p><h1><%= usuario.tipo === 'organizador' ? 'My events' : 'Upcoming events' %></h1><p><%= usuario.tipo === 'organizador' ? 'Create an event and keep every attendee in view.' : 'Find something worth showing up for.' %></p></div>
   <% if (usuario.tipo === 'organizador') { %><a class="btn btn-primary" href="/eventos/novo">+ Create event</a><% } %>
-</div>
+</header>
 <section class="grade">
-  <% if (!eventos.length) { %><div class="card border-0 shadow-sm p-4"><p class="text-secondary mb-0">No events found.</p></div><% } %>
+  <% if (!eventos.length) { %><div class="empty-state"><span aria-hidden="true">✦</span><h2>No events found</h2><p><%= usuario.tipo === 'organizador' ? 'Create your first event to start welcoming attendees.' : 'New events will appear here as soon as organizers publish them.' %></p></div><% } %>
   <% eventos.forEach(evento => { %>
     <article class="card shadow-sm cartao">
       <span class="badge data-evento"><%= new Date(evento.data_evento).toLocaleDateString('en-US') %></span>
       <h2 class="h5"><%= evento.titulo %></h2>
-      <p><strong>Location:</strong> <%= evento.local %></p>
-      <p><strong>Registered:</strong> <%= evento.total_inscritos %> / <%= evento.vagas %></p>
+      <p class="event-meta"><span>Location</span><strong><%= evento.local %></strong></p>
+      <p class="event-meta"><span>Registered</span><strong><%= evento.total_inscritos %> / <%= evento.vagas %></strong></p>
       <div class="acoes">
         <a class="btn btn-sm btn-outline-primary" href="/eventos/<%= evento.id %>">Details</a>
         <% if (usuario.tipo === 'organizador') { %>
